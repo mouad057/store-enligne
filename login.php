@@ -1,33 +1,32 @@
 <?php
-// --- DÉBUT DE LA LOGIQUE PHP ---
-$error_message = ''; // Initialise la variable d'erreur
 
-// Vérifie si le formulaire a été soumis
+$error_message = ''; 
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Récupère et nettoie les données du formulaire
+    
     $fullname = isset($_POST['fullname']) ? htmlspecialchars(trim($_POST['fullname'])) : '';
     $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-    // Validation simple
+    
     if (empty($fullname) || empty($email) || empty($password)) {
         $error_message = "Erreur : Tous les champs sont obligatoires.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error_message = "Erreur : Le format de l'adresse e-mail est invalide.";
     } else {
-        // Si la validation est réussie
         
-        // Hachage du mot de passe pour la sécurité
+        
+        
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        // --- MODIFICATION ICI ---
-        // Au lieu d'afficher un message, on redirige vers home.php
+       
         header("Location: home.php");
-        exit(); // Il est important d'appeler exit() après une redirection pour arrêter l'exécution du script.
+        exit(); 
     }
 }
-// --- FIN DE LA LOGIQUE PHP ---
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -294,4 +293,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </body>
+
 </html>
